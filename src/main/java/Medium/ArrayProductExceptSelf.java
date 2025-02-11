@@ -10,32 +10,17 @@ public class ArrayProductExceptSelf {
     }
 
     private static int[] productExceptSelf(int[] nums) {
-        int[] leftProduct = new int[nums.length];
-        int[] rightProduct = new int[nums.length];
-        int[] result = new int[nums.length];
-
-        for(int i=0, temp =1; i<nums.length; i++){
-            leftProduct[i] = temp;
-            System.out.println("leftProduct: " + Arrays.toString(leftProduct));
-            temp = temp * nums[i];
-            System.out.println("temp: " + temp);
+        int n = nums.length;
+        int[] ans = new int[n];
+        for (int i = 0, left = 1; i < n; ++i) {
+            ans[i] = left;
+            left *= nums[i];
         }
-
-        for(int i =nums.length-1, temp =1; i>= 0; i--){
-            rightProduct[i] = temp;
-            System.out.println("rightProduct: " + Arrays.toString(rightProduct));
-            temp = temp * nums[i];
-            System.out.println("temp: " + temp);
+        for (int i = n - 1, right = 1; i >= 0; --i) {
+            ans[i] *= right; // I made mistake here by using = instead of *=
+            right *= nums[i];
         }
-
-        System.out.println("leftProduct: " + Arrays.toString(leftProduct));
-        System.out.println("rightProduct: " + Arrays.toString(rightProduct));
-
-
-        for(int i =0; i<nums.length; i++){
-            result[i] = leftProduct[i] * rightProduct[i];
-        }
-
-        return result;
+        Arrays.stream(ans).forEach(System.out::println);
+        return ans;
     }
 }
